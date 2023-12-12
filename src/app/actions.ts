@@ -9,7 +9,8 @@ import { Amplify } from 'aws-amplify';
 import config from '@/amplifyconfiguration.json';
 Amplify.configure(config);
 const client = generateClient();
-const bucketName = 'hr-ses-mail-received-tol';
+//const bucketName = 'hr-ses-mail-received-tol';
+const bucketName = process.env?.BUCKET_NAME ? process.env?.BUCKET_NAME : 'hr-ses-mail-received-tol';
 Amplify.configure(config, {
     ssr: true // required when using Amplify with Next.js
 });
@@ -63,11 +64,11 @@ export async function saveDataToS3(filePath: string): Promise<[string, string]> 
         const fileName = filePath.split('/').pop();
         console.log('[saveDataToS3] Got fileName [', fileName, ']')
         if (fileName) {
-            // const result = await uploadData({
-            //     key: fileName,
-            //     data: fileContent,
-            // }).result;
-            //console.log('Succeeded uploadData to s3: ', result);
+            const result = await uploadData({
+                key: fileName,
+                data: fileContent,
+            }).result;
+            console.log('Succeeded uploadData to s3: ', result);
             return [`public/${fileName}`, bucketName]
         }
         

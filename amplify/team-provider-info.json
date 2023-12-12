@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "nextampltol3bb23ea39": {}
+      },
+      "storage": {
+        "nextampltol39c6991bd": {
+          "bucketName": "hr-ses-mail-received-tol",
+          "region": "eu-west-1"
+        }
       }
     }
   }
