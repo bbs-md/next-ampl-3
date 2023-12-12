@@ -1,0 +1,51 @@
+.call {
+    box-sizing: border-box;
+    float: left;
+    padding-right: 100px;
+    width: 28.33%;
+    /* min-height: 100vh; */
+    /* min-height: 800px; */
+    /* height: 100vh; */
+    /* height: 500  */
+    width: 700px;
+  }
+  .retro {
+    float: left;
+    width: 700px;
+    margin-right: -100px;
+    height: 400px;
+  }
+
+  form {
+    float: left;
+  }
+
+  .container {
+    float: left;
+    width: 1500px;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+  }
+
+  .ant-form {
+    float: left;
+  }
+
+  .ant-select-selector {
+    width: 450px;
+  }
+
+ .checkbox {
+  margin-left: -420px;
+ }
+
+ #submin-form {
+  margin-left: 200px;
+ }
+
+ .message {
+  padding-left: 200px;
+ }
+
+
