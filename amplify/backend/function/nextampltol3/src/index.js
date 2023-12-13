@@ -32,12 +32,13 @@ export const handler = async (event, context) => {
                 const objectKey = cvData['objectKey'];
                 const source = cvData['source'];
                 const vacancy = cvData['vacancy'];
+                const location = cvData['location'];
                 const citizenship = cvData['citizenship'];
                 const notes = cvData['notes'];
-                if (!bucketName || !objectKey || !source || !vacancy || !citizenship)  {
+                if (!bucketName || !objectKey || !source || !vacancy || !citizenship || !location)  {
                     console.error('The [bucketName, objectKey, source, vacancy or citizenship] parameter(s) is/are empty, provide non-empty value')
                     console.log('<<<___F I N I S H____L A M B D A___API_GQL__ERROR___>>>')
-                    return responseDict(400, `The bucketName [${bucketName}], objectKey [${objectKey}], source [${source}], vacancy [${vacancy} or citizenship [${citizenship}] parameter(s) is/are empty, provide non-empty value`)
+                    return responseDict(400, `The bucketName [${bucketName}], objectKey [${objectKey}], source [${source}], location [${location}], vacancy [${vacancy} or citizenship [${citizenship}] parameter(s) is/are empty, provide non-empty value`)
                 }
 
                 const message = {
@@ -51,6 +52,7 @@ export const handler = async (event, context) => {
                         "source": source,
                         "destination": "hr@alliedtesting.careers",
                     },
+                    location,
                     vacancy,
                     citizenship,
                     notes                    
