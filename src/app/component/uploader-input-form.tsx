@@ -52,11 +52,8 @@ export default function UploadForm(props: any) {
         setProgress(0);
         setMes('');
         if (values) {
-            let upload  = values?.upload;
-            let name = values?.nickname;
             let citizenship = values?.citizenship;
             let notes = values?.notes;
-            console.log('upload: ', upload, ", nickname: ", name)
             console.log('vacancy: ', vacancy)
             console.log('office: ', office)
             console.log('citizenship: ', citizenship)
@@ -64,9 +61,6 @@ export default function UploadForm(props: any) {
             if (file) {
                 const data = new FormData()
                 data.set('file', file)
-                if (name) {
-                    data.set('name', name?.toString())
-                }
                 setSpin(true)
                 try {
                     const uploadResponseDict =await axios.post('/api/upload', data, {
@@ -84,6 +78,17 @@ export default function UploadForm(props: any) {
                     console.log(`The [${filePath}] file was saved`)
                     const saveDataToS3Response = await saveDataToS3(filePath);
                     console.log('fileNameData ', saveDataToS3Response);
+
+                    
+                    const objectKey = saveDataToS3Response[0];
+                    const bucketName = saveDataToS3Response[1];
+                    let cvDataDict: {} = {location: office, vacancy, citizenship, notes, objectKey, bucketName, source: 'alliedtesting.com'}
+                    const sendCvDataByGrapgQlResponse = await sendCvDataByGrapgQl(filePath, cvDataDict)
+                    console.log('sendCvDataByGrapgQlResponse ', sendCvDataByGrapgQlResponse)
+                    const responseFileName = sendCvDataByGrapgQlResponse['fileName'];
+                    if (responseFileName) {
+                        //setMessage(`Data and the [${file.name}] file were uploaded`)
+                    }
 
                     setSpin(false)
                     setMes('data has been downloaded and is being processed')

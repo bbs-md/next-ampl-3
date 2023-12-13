@@ -27,7 +27,7 @@
       "function": {
         "nextampltol3": {
           "deploymentBucketName": "amplify-nextampltol3-dev-03227-deployment",
-          "s3Key": "amplify-builds/nextampltol3-76627a42474a33556c69-build.zip"
+          "s3Key": "amplify-builds/nextampltol3-7275526f4148616b745a-build.zip"
         }
       }
     }

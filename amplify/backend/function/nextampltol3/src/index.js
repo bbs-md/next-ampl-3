@@ -31,11 +31,13 @@ export const handler = async (event, context) => {
                 const bucketName = cvData['bucketName'];
                 const objectKey = cvData['objectKey'];
                 const source = cvData['source'];
-                const name = cvData['name'];
-                if (!bucketName || !objectKey || !source || !name) {
-                    console.error('The [bucketName, objectKey, source or name] parameter(s) is/are empty, provide non-empty value')
+                const vacancy = cvData['vacancy'];
+                const citizenship = cvData['citizenship'];
+                const notes = cvData['notes'];
+                if (!bucketName || !objectKey || !source || !vacancy || !citizenship)  {
+                    console.error('The [bucketName, objectKey, source, vacancy or citizenship] parameter(s) is/are empty, provide non-empty value')
                     console.log('<<<___F I N I S H____L A M B D A___API_GQL__ERROR___>>>')
-                    return responseDict(400, `The bucketName [${bucketName}], objectKey [${objectKey}], source [${source}] or name [${name}] parameter(s) is/are empty, provide non-empty value`)
+                    return responseDict(400, `The bucketName [${bucketName}], objectKey [${objectKey}], source [${source}], vacancy [${vacancy} or citizenship [${citizenship}] parameter(s) is/are empty, provide non-empty value`)
                 }
 
                 const message = {
@@ -49,26 +51,19 @@ export const handler = async (event, context) => {
                         "source": source,
                         "destination": "hr@alliedtesting.careers",
                     },
-                    name: name
+                    vacancy,
+                    citizenship,
+                    notes                    
                 }
-                //var sns1 = new AWS.SNS();
-                var params = {
-                    Message: JSON.stringify(message), 
-                    Subject: "Test SNS From Lambda",
-                    TopicArn: "arn:aws:sns:eu-west-1:074168154675:incoming-email-processing-tol-SesIncomingEmailEventTopic-DL3aj9EULs6U"
-                };
-                //sns1.publish(params, context.done);
-
                 const snsClient = new SNSClient({});
                 const response = await snsClient.send(
                     new PublishCommand({
                       Message: JSON.stringify(message),
-                      // One of PhoneNumber, TopicArn, or TargetArn must be specified.
                       TopicArn: "arn:aws:sns:eu-west-1:074168154675:incoming-email-processing-tol-SesIncomingEmailEventTopic-DL3aj9EULs6U"
                     }),
                   );
-                  console.log(response);
-                console.log(`bucketName [${bucketName}]', objectKey [${objectKey}], source [${source}], name [${name}]`)
+                console.log(response);
+                console.log(`bucketName [${bucketName}]', objectKey [${objectKey}], source [${source}], vacancy [${vacancy}], citizenship [${citizenship}], notes [${notes}]`)
                 console.log('<<<___F I N I S H____L A M B D A___API_GQL___OK___>>>')
                 return responseDict(200, 'Hello from Lambda 2!, arg ' + arg)
             }
@@ -77,13 +72,4 @@ export const handler = async (event, context) => {
     console.error(400, 'Invalid input data, arg: ' + arg)
     console.error('<<<___F I N I S H____L A M B D A___API_GQL__ERROR___>>>')
     return responseDict(400, 'Invalid input data, arg: ' + arg)
-    return {
-        statusCode: 200,
-    //  Uncomment below to enable CORS requests
-    //  headers: {
-    //      "Access-Control-Allow-Origin": "*",
-    //      "Access-Control-Allow-Headers": "*"
-    //  },
-        body: JSON.stringify('Hello from Lambda 2!, arg ' + arg),
-    };
 };
