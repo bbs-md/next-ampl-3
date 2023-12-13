@@ -26,7 +26,7 @@ export const handler = async (event, context) => {
         arg = JSON.stringify(event['arguments']);
         if (event['arguments']['cvData']) {
             const cvData = event['arguments']['cvData'];
-            if (cvData['bucketName'] && cvData['objectKey'] && cvData['source'] && cvData['name']) {
+            if (cvData['bucketName'] && cvData['objectKey'] && cvData['source'] && cvData['vacancy']) {
                 //const sns = new AWS.SNS();
                 const bucketName = cvData['bucketName'];
                 const objectKey = cvData['objectKey'];
