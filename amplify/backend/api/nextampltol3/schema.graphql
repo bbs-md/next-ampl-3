@@ -13,6 +13,9 @@ type Query @aws_iam {
 input CvData {
   bucketName: String!
   objectKey: String!
-  source: String!
-  name: String
+  source: String!,
+  location: String!,
+  vacancy: String!,
+  citizenship: String,
+  notes: String
 }

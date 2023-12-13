@@ -2,7 +2,7 @@
 
 import { readFile } from "fs/promises";
 import { generateClient } from 'aws-amplify/api';
-//import { alliedHrCvMutation } from "@/graphql/mutations";
+import { hrCvMutation } from "@/graphql/mutations";
 
 import { uploadData } from 'aws-amplify/storage';
 import { Amplify } from 'aws-amplify';
@@ -23,17 +23,20 @@ export async function sendCvDataByGrapgQl(filePath: string, cvData: {[key:string
             const fileName = filePath.split('/').pop();
             console.log('Got fileName [', fileName, ']')
             if (fileName) {
-                // const apiData = await client.graphql({ query: alliedHrCvMutation, variables: { 
-                //     cvData: {
-                //       bucketName: bucketName,
-                //       objectKey: `public/${fileName}`,
-                //       source: "alliedtesting.com",
-                //       name: cvData.name
-                //     }
-                // },
-                // authMode: 'iam'
-                // });
-           // console.log('graphql apiData >>> ', apiData)
+                const apiData = await client.graphql({ query: hrCvMutation, variables: { 
+                    cvData: {
+                      bucketName: bucketName,
+                      objectKey: `public/${fileName}`,
+                      source: "alliedtesting.com",
+                      location: cvData.location,
+                      vacancy: cvData.vacancy,
+                      citizenship: cvData.citizenship,
+                      notes: cvData.notes,
+                    }
+                },
+                authMode: 'iam'
+                });
+           console.log('graphql apiData >>> ', apiData)
             return {fileName: fileName}
             }            
         } 

@@ -6,7 +6,10 @@ export type CvData = {
   bucketName: string,
   objectKey: string,
   source: string,
-  name?: string | null,
+  location: string,
+  vacancy: string,
+  citizenship?: string | null,
+  notes?: string | null,
 };
 
 export type HrCvMutationMutationVariables = {
