@@ -20,6 +20,9 @@
           "bucketName": "hr-ses-mail-received-tol",
           "region": "eu-west-1"
         }
+      },
+      "api": {
+        "nextampltol3": {}
       }
     }
   }
