@@ -44,7 +44,7 @@ export async function sendCvDataByGrapgQl(filePath: string, cvData: {[key:string
             message = '[sendCvDataByGrapgQl] filePath is empty'
         }       
    } catch (error) {
-       console.log('Failed to uploadData to s3: ', error);
+       console.log('Failed sent message to sns: ', error);
        message = 'sendCvDataByGrapgQl Error';
    }
    return {message}
