@@ -1,0 +1,6 @@
+[
+  {
+    "Action": ["sns:Publish"],
+    "Resource": ["arn:aws:sns:eu-west-1:074168154675:incoming-email-processing-tol-SesIncomingEmailEventTopic-*"]
+  }
+]
