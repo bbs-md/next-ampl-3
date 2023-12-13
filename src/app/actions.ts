@@ -21,7 +21,9 @@ export async function sendCvDataByGrapgQl(filePath: string, cvData: {[key:string
         const fileContent = await readFile(filePath)
         if (filePath) {
             const fileName = filePath.split('/').pop();
-            console.log('Got fileName [', fileName, ']')
+            console.log('[sendCvDataByGrapgQl] Got fileName [', fileName, ']');
+            console.log('[sendCvDataByGrapgQl] Got hrCvMutation [', hrCvMutation, ']');
+            console.log('[sendCvDataByGrapgQl] Got cvData [', cvData, ']')
             if (fileName) {
                 const apiData = await client.graphql({ query: hrCvMutation, variables: { 
                     cvData: {
@@ -34,7 +36,7 @@ export async function sendCvDataByGrapgQl(filePath: string, cvData: {[key:string
                       notes: cvData.notes,
                     }
                 },
-                authMode: 'iam'
+                //authMode: 'iam'
                 });
            console.log('graphql apiData >>> ', apiData)
             return {fileName: fileName}
